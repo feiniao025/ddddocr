@@ -33,7 +33,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 构建并推送（只生成 amd64 + arm64，绝对不会出现 unknown）
+      # 构建并推送（已禁用缓存，彻底解决报错）
       - name: 构建并推送
         uses: docker/build-push-action@v6
         with:
@@ -41,11 +41,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/feiniao025/ddddocr:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          provenance: false
+          provenance: false  # 干掉 unknown/unknown
 
-      # 自动清理旧镜像，只保留最新 2 个
+      # 自动清理旧镜像
       - name: 删除旧版本
         uses: actions/delete-package-versions@v5
         with:
