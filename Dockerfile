@@ -7,12 +7,15 @@ RUN apt-get update && \
     libxrender1 \
     libxext6 \
     libgl1-mesa-dev && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /ddddocr
-COPY . /ddddocr
 
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 7777
 CMD ["python", "server.py"]
