@@ -9,18 +9,16 @@ import logging
 import re
 import base64
 
-# 初始化 Flask
 app = Flask(__name__)
 
-# 生产环境禁用文件日志，避免容器占用空间
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 # ==========================
-# 全局初始化一次（大幅提速）
+# 修复：小写 DdddOcr
 # ==========================
-ocr = ddddocr.DdddOCR()
-det = ddddocr.DdddOCR(det=True)
+ocr = ddddocr.DdddOcr()
+det = ddddocr.DdddOcr(det=True)
 
 def get_image_bytes(image_data):
     if isinstance(image_data, bytes):
@@ -39,9 +37,6 @@ def image_to_base64(image, format='PNG'):
     image.save(buffered, format=format)
     return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-# ==========================
-# 验证码 API
-# ==========================
 @app.route('/capcode', methods=['POST'])
 def capcode():
     try:
@@ -98,10 +93,10 @@ def calculate():
         img_bytes = get_image_bytes(data['image'])
         expr = ocr.classification(img_bytes)
         expr = re.sub('=.*$', '', expr)
-        expr = re.sub('[^0-9+\-*/()]', '', expr)
+        # 修复：正则加 r 前缀
+        expr = re.sub(r'[^0-9+\-*/()]', '', expr)
         
-        # 安全计算，替换危险 eval
-        return jsonify(result=round(eval(expr), 2))  # 保留原逻辑但做安全限制
+        return jsonify(result=round(eval(expr), 2))
     except:
         return jsonify(error="计算失败"), 500
 
@@ -149,13 +144,10 @@ def select():
 def index():
     return '{"status": "ok", "msg": "ddddocr API 运行正常"}'
 
-# ==========================
-# 生产环境启动配置
-# ==========================
 if __name__ == '__main__':
     app.run(
         host="0.0.0.0",
         port=7777,
         threaded=True,
-        debug=False  # 生产环境必须关闭
+        debug=False
     )
