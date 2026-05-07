@@ -3,11 +3,11 @@
 ## 部署
 ### docker (推荐)
 ```shell
-docker run -d -p 7777:7777 --restart=always --name ddddocr xzxxn777/ddddocr:latest
+docker run -d -p 7777:7777 --restart=always --name ddddocr feiniao025/ddddocr:latest
 ```
 ### 本地
 ```shell
-git clone https://github.com/xzxxn777/ddddocr.git
+git clone https://github.com/feiniao025/ddddocr.git
 pip install -r requirements.txt
 python server.py
 ```
