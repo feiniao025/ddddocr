@@ -3,7 +3,7 @@
 ## 部署
 ### docker (推荐)
 ```shell
-docker run -d -p 7777:7777 --restart=always --name ddddocr feiniao025/ddddocr:latest
+docker run -d -p 7777:7777 --restart=always --name ddddocr ghcr.io/feiniao025/ddddocr:latest
 ```
 ### 本地
 ```shell
