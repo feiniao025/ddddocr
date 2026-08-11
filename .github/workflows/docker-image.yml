@@ -40,13 +40,13 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/feiniao025/ddddocr:latest
+          tags: ghcr.io/feiniao025/ddddocr2:latest
           provenance: false  # 干掉 unknown/unknown
 
       # 自动清理旧镜像
       - name: 删除旧版本
         uses: actions/delete-package-versions@v5
         with:
-          package-name: ddddocr
+          package-name: ddddocr2
           package-type: container
           min-versions-to-keep: 2
