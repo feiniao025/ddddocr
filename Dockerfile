@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /ddddocr
 
 # 复制项目文件到容器中
-COPY ddddocr-docker/. /ddddocr
+COPY . /ddddocr
 
 # 安装项目依赖
 RUN pip install --no-cache-dir -r requirements.txt
