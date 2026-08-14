@@ -1,7 +1,6 @@
-ddddocr
-Flask
-requests
+ddddocr==1.5.5
+Flask==3.0.3
+requests==2.32.3
 urllib3==1.25.11
 numpy==1.26.4
-opencv-python
-numpy
+opencv-python==4.10.0.84
