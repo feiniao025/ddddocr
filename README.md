@@ -1,4 +1,4 @@
-# ddddocr服务
+# ddddocr1.5.5服务
 
 ## 部署
 ### docker (推荐)
